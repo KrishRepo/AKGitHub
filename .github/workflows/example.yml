@@ -1,1 +1,29 @@
 
+name : workflowlearn
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: workflowjob1 name
+        required: true
+        type: string
+      data:
+        description: workflowjob1 data
+        required: true
+        type: string
+jobs:
+  greet:
+    runs-on: ubuntu_latest
+    steps:
+      name: Greetings
+      run: |
+        echo "${{ inputs.greeting }}, ${{ inputs.name }}!"
+Jobs:
+  data:
+    runs-on: ubuntu_latest
+    steps:
+      name: WorflowJob2
+      run: |
+        echo "${{inputs.name}}"
+  

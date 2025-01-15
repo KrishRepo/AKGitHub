@@ -1,32 +1,17 @@
-name: Manual Trigger with Params
+name: Super-Linter
 
-on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Name of the person to greet'
-        required: true
-        type: string
-      greeting:
-        description: 'Type of greeting'
-        required: true
-        type: string
-      data:
-        description: 'Base64 encoded content of a file'
-        required: false
-        type: string
+on: push
 
 jobs:
-  greet:
+  super-lint:
+    name: Lint code base
     runs-on: ubuntu-latest
     steps:
-      - name: Decode File Content
-        run: |
-          echo "${{ inputs.data }}" | base64 --decode > ./decoded_file.txt
-      - name: Display Greeting
-        run: |
-          echo "${{ inputs.greeting }}, ${{ inputs.name }}!"
-      - name: Display File Content
-        run: |
-          echo "Contents of the file:"
-          cat ./decoded_file.txt
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

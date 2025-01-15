@@ -1,19 +1,14 @@
-on:
-  push:
-    branches:
-      - main
-      - dev
-  pull_request:
-    branches:
-      - main
-
+name: example-workflow
+on: [push]
 jobs:
-  hello_world:
+  hello-world:
+    if: github.repository == 'octo-org/octo-repo-prod'
     runs-on: ubuntu-latest
     steps:
-      - name: "Echo 1 Basic Information"
-        run: |
-          echo "REF: $GITHUB_REF"
-          echo "Job ID: $GITHUB_JOB"
-          echo "Action: $GITHUB_ACTION"
-          echo "Actor: $GITHUB_ACTOR"
+      - name: "Hello World"
+        run:  echo "Hello World!"
+  goodbye-moon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Goodbye Moon"
+        run:  echo "Goodbye Moon!"
